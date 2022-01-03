@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Marker;
+use App\Observers\MarkerObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -27,6 +29,6 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Marker::observe(MarkerObserver::class);
     }
 }

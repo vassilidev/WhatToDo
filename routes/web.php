@@ -1,18 +1,16 @@
 <?php
 
+use App\Http\Controllers\MarkerController;
+use App\Http\Controllers\User\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+Route::view('/', 'pages.homepage')->name('homepage');
+Route::view('/contact', 'pages.contact')->name('contact');
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['middleware' => 'auth:web'], function () {
+    Route::resource('marker', MarkerController::class);
 });
+
+// User Routes
+Route::get('/profile/{user:username}', ProfileController::class)
+    ->name('profile');
