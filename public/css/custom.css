@@ -1,6 +1,13 @@
-.bg-custom {
+.bg-water {
+    background: #191a1a !important;
+}
+
+.bg-road {
+    background: #3b3b3b !important;
+}
+
+.bg-land {
     background: #343332 !important;
-    color: white;
 }
 
 .shadow-lg-white {

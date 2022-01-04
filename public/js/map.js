@@ -38,6 +38,9 @@ const map = new mapboxgl.Map({
     zoom: 5
 });
 
+map.addControl(new mapboxgl.FullscreenControl({container: document.querySelector('body')}));
+map.addControl(new mapboxgl.ScaleControl());
+
 map.addControl(
     new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,

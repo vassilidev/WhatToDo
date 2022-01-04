@@ -1,0 +1,65 @@
+/*
+Black = #343332
+Grey = #191A1A
+ */
+
+
+#sidebar {
+    background: white;
+}
+
+.dark-theme #sidebar {
+    background: #343332;
+    box-shadow: 0 1rem 3rem rgb(255 255 255 / 10%) !important;
+}
+
+#sidebar .nav-link {
+    color: #343332;
+}
+
+.dark-theme #sidebar .nav-link {
+    color: white;
+}
+
+#content {
+    background: #e9ecef !important;
+}
+
+.dark-theme #content {
+    background: #191A1A !important;
+}
+
+.dark-theme .card {
+    background: #343332;
+    color: white;
+    box-shadow: 0 1rem 3rem rgb(255 255 255 / 10%) !important;
+}
+
+.card {
+    color: #343332;
+}
+
+.dark-theme h1 {
+    color: white !important;
+}
+
+a {
+    color: #343332;
+}
+
+a:hover {
+    color: #191A1A;
+}
+
+.dark-theme .dropdown a {
+    color: white;
+}
+
+.dark-theme .dropdown-menu {
+    background: #191A1A;
+    color: white;
+}
+
+.dark-theme .dropdown-item:hover {
+    background: #343332;
+}
