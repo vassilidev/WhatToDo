@@ -3,13 +3,13 @@
 @section('content')
     <div class="container mt-2 mb-5">
         <h1><i class="bi-plus-circle"></i> Création d'un nouveau marker</h1>
-        <div class="alert d-flex align-items-center bg-land">
+        <div class="alert d-flex align-items-center">
             <i class="bi-info-circle flex-shrink-0 me-2"></i>
             Pour placer le marker, il suffit de cliquer à l'endroit où vous le voulez, tout simplement !
         </div>
         <div id="map" class="mb-4 rounded-xl" style="height: 25rem;"></div>
 
-        <div class="card bg-land rounded-xl mb-4">
+        <div class="card rounded-xl mb-4">
             <div class="card-body">
                 <h4 class="card-title">
                     <i class="bi-info-circle-fill"></i> Information du marker

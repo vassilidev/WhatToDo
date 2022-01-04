@@ -31,9 +31,11 @@ class MapboxGLButtonControl {
 
 mapboxgl.accessToken = 'pk.eyJ1IjoidmFzc2lsaWRldm5ldCIsImEiOiJja3h2eHBmOTgxcXF1MnBtcGx5ZmU5bnQ2In0.dqxQQsMZHOZFvYNjLYZhWA';
 
+theme = getCookie('theme') || 'light'
+
 const map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/dark-v10?optimize=true',
+    style: `mapbox://styles/mapbox/${theme}-v10?optimize=true`,
     center: [2.209666999999996, 46.232192999999995],
     zoom: 5
 });

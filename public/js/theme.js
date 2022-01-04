@@ -12,6 +12,7 @@ toggle_icon.addEventListener('click', function () {
         body.classList.remove(dark_theme_class);
 
         setCookie('theme', 'light');
+        setMap('light')
     } else {
         toggle_icon.classList.add(sun_class);
         toggle_icon.classList.remove(moon_class);
@@ -19,15 +20,12 @@ toggle_icon.addEventListener('click', function () {
         body.classList.add(dark_theme_class);
 
         setCookie('theme', 'dark');
+        setMap('dark')
     }
 });
 
-function setCookie(name, value) {
+function setMap(value) {
     if (typeof map !== 'undefined') {
         map.setStyle('mapbox://styles/mapbox/' + value + '-v10');
     }
-    var d = new Date();
-    d.setTime(d.getTime() + (365 * 24 * 60 * 60 * 1000));
-    var expires = "expires=" + d.toUTCString();
-    document.cookie = name + "=" + value + ";" + expires + ";path=/";
 }
