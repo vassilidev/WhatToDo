@@ -41,7 +41,9 @@ class MarkerController extends Controller
     {
         Auth::user()->markers()->create($request->validated());
 
-        return redirect()->back();
+        toast('Le marker a bien été créer !', 'success');
+        
+        return redirect()->route('profile', Auth::user());
     }
 
     /**

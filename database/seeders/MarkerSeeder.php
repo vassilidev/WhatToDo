@@ -16,7 +16,7 @@ class MarkerSeeder extends Seeder
     public function run()
     {
         if (App::environment(['local', 'staging'])) {
-            Marker::factory()->times(50)->create();
+            Marker::factory()->times(10)->create();
         }
     }
 

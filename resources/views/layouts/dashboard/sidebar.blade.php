@@ -39,10 +39,8 @@
     @endguest
 
     <li class="nav-item">
-        <a href="#" class="nav-link py-3 px-2" title="Changer le thème" data-bs-toggle="tooltip"
-           data-bs-placement="right">
-            <i class="fs-1 bi-{{ $theme != 'dark' ? 'moon' : 'sun' }}-fill" id="theme-toggle"></i>
-        </a>
+        <i title="Changer le thème" data-bs-toggle="tooltip"
+           data-bs-placement="right" class="nav-link py-3 px-2 fs-1 bi-{{ $theme != 'dark' ? 'moon' : 'sun' }}-fill" id="theme-toggle"></i>
     </li>
 
     <li class="nav-item">

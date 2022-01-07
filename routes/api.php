@@ -1,5 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\GetMarkersController;
+use App\Http\Controllers\Api\Marker\GetMarkersController;
 
-Route::get('/getMarkers', GetMarkersController::class)->name('getMarkers');
+Route::get('/getMarkers', GetMarkersController::class)
+    ->name('getMarkers');

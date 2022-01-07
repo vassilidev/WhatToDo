@@ -1,17 +1,18 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <div class="container my-5">
+    <div class="container-fluid mt-10 my-5">
         <div class="row">
             <div class="col-lg-4">
                 <div class="card mb-4 rounded-xl">
-                    <div class="p-4 d-flex flex-column align-items-center text-center">
+                    <div class="text-center">
                         <img
                             src="https://eu.ui-avatars.com/api/?name={{ $user->full_name }}&background=75cff0&color=fff"
-                            alt="Admin" class="rounded-circle"
+                            alt="Admin" class="avatar rounded-circle"
                             width="150">
-                        <div class="mt-3">
-                            <h4>{{ $user->full_name }}</h4>
+                        <div class="mt-n4">
+                            <h4>{{ '@' . $user->username }}</h4>
+                            @livewire('user.follow-counters', ['user' => $user])
                             <p>
                                 <i class="bi-hand-thumbs-up-fill fs-5"></i> 15 likes
                             </p>
@@ -21,6 +22,9 @@
                             <p class="text-muted font-size-sm">
                                 {{ $user->description }}
                             </p>
+                            @if(Auth::check() && $user->id != Auth::id())
+                                @livewire('user.follow-buttons', ['user' => $user])
+                            @endauth
                         </div>
                     </div>
                 </div>

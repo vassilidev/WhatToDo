@@ -2,17 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Overtrue\LaravelFollow\Followable;
+use Spatie\Searchable\Searchable;
+use Spatie\Searchable\SearchResult;
 use Str;
 
-class User extends Authenticatable
+class User extends Authenticatable implements Searchable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory, Notifiable, Followable;
 
     /**
      * The attributes that are mass assignable.
@@ -68,6 +69,11 @@ class User extends Authenticatable
         return $this->name . ' ' . $this->surname;
     }
 
+    public function needsToApproveFollowRequests(): bool
+    {
+        return (bool) !$this->is_public;
+    }
+
     public function scopePublic($query, $public = true)
     {
         return $query->where('is_public', $public);
@@ -76,5 +82,17 @@ class User extends Authenticatable
     public function markers(): HasMany
     {
         return $this->hasMany(Marker::class);
+    }
+
+    public function isPublic(): bool
+    {
+        return (bool) $this->is_public;
+    }
+
+    public function getSearchResult(): SearchResult
+    {
+        $url = route('profile', $this);
+
+        return new SearchResult($this, $this->username, $url);
     }
 }

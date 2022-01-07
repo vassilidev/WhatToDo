@@ -27,6 +27,7 @@
                             'name': element.name,
                             'description': element.description,
                             'user': element.user,
+                            'created_diff': element.created_diff
                         }
                     }
                     features.push(feature)
@@ -46,9 +47,10 @@
                     var popup = new mapboxgl.Popup()
                         .setHTML('<strong>' + marker.properties.name + '</strong>' +
                             '<p>' + marker.properties.description + '</p>' +
-                            '<p>' + 'Créer par' + '<a href="' + url + '"> ' +
+                            '<span>' + 'Créer par' + '<a href="' + url + '"> ' +
                             marker.properties.user.username +
-                            '</p>');
+                            '</a></span> ' +
+                            marker.properties.created_diff);
 
                     new mapboxgl.Marker()
                         .setLngLat(marker.geometry.coordinates)
