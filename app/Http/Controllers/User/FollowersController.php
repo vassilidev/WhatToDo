@@ -4,11 +4,9 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Auth;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
-use Spatie\Searchable\Search;
-use Spatie\Searchable\SearchResultCollection;
 
 class FollowersController extends Controller
 {
@@ -22,7 +20,6 @@ class FollowersController extends Controller
         $this->authorize('getFollowers', $user);
 
         $followers = $user->followers()->select('users.id', 'name', 'surname', 'username')->get();
-        $followers = Auth::user()->attachFollowStatus($followers);
 
         return response()->json($followers);
     }
@@ -37,17 +34,46 @@ class FollowersController extends Controller
         $this->authorize('getFollowers', $user);
 
         $followings = $user->followings()->select('users.id', 'name', 'surname', 'username')->get();
-        $followings = Auth::user()->attachFollowStatus($followings);
 
         return response()->json($followings);
     }
 
-    public function searchFollowers(User $user, $term = ''): SearchResultCollection
+    /**
+     * @param User $user
+     * @return Collection|JsonResponse
+     * @throws AuthorizationException
+     */
+    public function searchFollowers(User $user)
     {
-        $followers = $user->followers();
+        $this->authorize('searchFollowers', $user);
 
-        return (new Search())
-            ->registerModel(User::class, ['name', 'surname', 'username'])
-            ->search($term);
+        $followers = $user->followers()->search(['username', 'name', 'surname'], request('search') ?? '');
+
+        if (request()->wantsJson()) {
+            return response()->json($followers);
+        }
+
+        return $followers;
+    }
+
+    /**
+     * @param User $user
+     * @return Collection|JsonResponse
+     * @throws AuthorizationException
+     */
+    public function searchFollowings(User $user)
+    {
+        $this->authorize('searchFollowers', $user);
+
+        $followings = $user->followings()
+            ->accepted()
+            ->search(['username', 'name', 'surname'], request('search') ?? '')
+            ->get();
+
+        if (request()->wantsJson()) {
+            return response()->json($followings);
+        }
+
+        return $followings;
     }
 }

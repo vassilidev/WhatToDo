@@ -2,16 +2,15 @@
 
 namespace App\Models;
 
+use App\Traits\Followable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Overtrue\LaravelFollow\Followable;
-use Spatie\Searchable\Searchable;
-use Spatie\Searchable\SearchResult;
 use Str;
 
-class User extends Authenticatable implements Searchable
+class User extends Authenticatable
 {
     use HasFactory, Notifiable, Followable;
 
@@ -69,11 +68,6 @@ class User extends Authenticatable implements Searchable
         return $this->name . ' ' . $this->surname;
     }
 
-    public function needsToApproveFollowRequests(): bool
-    {
-        return (bool) !$this->is_public;
-    }
-
     public function scopePublic($query, $public = true)
     {
         return $query->where('is_public', $public);
@@ -86,13 +80,11 @@ class User extends Authenticatable implements Searchable
 
     public function isPublic(): bool
     {
-        return (bool) $this->is_public;
+        return (bool)$this->is_public;
     }
 
-    public function getSearchResult(): SearchResult
+    public function invitedMarkers(): BelongsToMany
     {
-        $url = route('profile', $this);
-
-        return new SearchResult($this, $this->username, $url);
+        return $this->belongsToMany(Marker::class);
     }
 }

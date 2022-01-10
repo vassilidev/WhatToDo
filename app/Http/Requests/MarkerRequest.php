@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use App\Models\Marker;
+use App\Models\User;
+use Auth;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -44,7 +46,19 @@ class MarkerRequest extends FormRequest
             'lat' => [
                 'required',
                 'between:-90,90'
-            ]
+            ],
+            'visibility' => [
+                'required',
+                Rule::in(['public', 'members', 'followers', 'custom']),
+            ],
+            'followings' => [
+                'sometimes',
+                'array',
+            ],
+            'followers.*' => [
+                Rule::exists(User::class, 'id'),
+                'different:' . Auth::id(),
+            ],
         ];
     }
 }

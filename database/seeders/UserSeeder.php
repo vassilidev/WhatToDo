@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
         ]);
 
         if (App::environment(['local', 'staging'])) {
-            User::factory()->times(20)->create();
+            User::factory()->times(10)->create();
         }
     }
 }

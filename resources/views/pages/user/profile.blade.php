@@ -11,7 +11,14 @@
                             alt="Admin" class="avatar rounded-circle"
                             width="150">
                         <div class="mt-n4">
-                            <h4>{{ '@' . $user->username }}</h4>
+                            <h4>
+                                {{ '@' . $user->username }}
+                                @if($user->isPublic())
+                                    Public
+                                @else
+                                    Private
+                                @endif
+                            </h4>
                             @livewire('user.follow-counters', ['user' => $user])
                             <p>
                                 <i class="bi-hand-thumbs-up-fill fs-5"></i> 15 likes
@@ -64,20 +71,8 @@
                                         {{ $marker->description }}
                                     </p>
                                 </div>
-                                <div class="card-footer d-flex justify-content-between">
-                                    <div>
-                                        <div>
-                                            <i class="bi-star-fill text-warning"></i>
-                                            <i class="bi-star-fill text-warning"></i>
-                                            <i class="bi-star-fill text-warning"></i>
-                                            <i class="bi-star-fill text-warning"></i>
-                                            <i class="bi-star-fill text-secondary"></i>
-                                            <span class="small">{{ rand(1, 20) }} avis</span>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        {{ $marker->created_at->diffForHumans() }}
-                                    </div>
+                                <div class="card-footer d-flex justify-content-end">
+                                    {{ $marker->created_at->diffForHumans() }}
                                 </div>
                             </div>
                         </div>

@@ -106,4 +106,20 @@ class UserPolicy
             || $model->isPublic()
         );
     }
+
+    /**
+     * Determine whether the user can search in model's followers.
+     *
+     * @param User $user
+     * @param User $model
+     * @return bool
+     */
+    public function searchFollowers(User $user, User $model): bool
+    {
+        return (
+            $model->isFollowedBy($user)
+            || $user->id == $model->id
+            || $model->isPublic()
+        );
+    }
 }

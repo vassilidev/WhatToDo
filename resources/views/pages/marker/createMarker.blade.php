@@ -76,7 +76,7 @@
                             <label for="contact">Contacts</label>
                             <select class="form-control"
                                     multiple="multiple"
-                                    name="contact[]"
+                                    name="followings[]"
                                     id="contact"></select>
                         </div>
                     </div>
@@ -98,7 +98,7 @@
         let customContacts = $('#customContactDiv');
 
         customContacts.hide()
-        initCustomContacts()
+
         visibilitySelect.on('change', function () {
             if (visibilitySelect.val() === 'custom') {
                 initCustomContacts()
@@ -115,7 +115,7 @@
                 placeholder: "Select an Option",
                 allowClear: true,
                 ajax: {
-                    url: '{{ route('user.getFollowers', Auth::user()) }}',
+                    url: '{{ route('user.searchFollowers', Auth::user()) }}',
                     data: function (params) {
                         let query = {
                             search: params.term,

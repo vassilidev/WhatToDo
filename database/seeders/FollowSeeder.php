@@ -14,14 +14,16 @@ class FollowSeeder extends Seeder
      */
     public function run()
     {
-        $allUsers = User::all();
-        $nbrUser = $allUsers->count();
+        /*$allUsers = User::all();
 
         foreach ($allUsers as $user) {
-            $followingUsers = $allUsers->random(rand(0, $nbrUser));
-            foreach ($followingUsers as $userToFollow) {
+            $usersToFollow = $allUsers->random(
+                rand(0, $allUsers->count() / 2)
+            )->where('id', '!=', $user->id);
+
+            foreach ($usersToFollow as $userToFollow) {
                 $user->follow($userToFollow);
             }
-        }
+        }*/
     }
 }

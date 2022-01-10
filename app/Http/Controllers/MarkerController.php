@@ -39,10 +39,16 @@ class MarkerController extends Controller
      */
     public function store(MarkerRequest $request): RedirectResponse
     {
-        Auth::user()->markers()->create($request->validated());
+        $validatedData = $request->validated();
+
+        $marker = Auth::user()->markers()->create($validatedData);
+
+        if ($validatedData['visibility'] === 'custom' && !empty($validatedData['followings'])) {
+            $marker->invitedUsers()->attach($validatedData['followings']);
+        }
 
         toast('Le marker a bien été créer !', 'success');
-        
+
         return redirect()->route('profile', Auth::user());
     }
 

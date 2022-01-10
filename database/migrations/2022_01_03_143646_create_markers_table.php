@@ -15,12 +15,32 @@ class CreateMarkersTable extends Migration
     {
         Schema::create('markers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->string('slug')->unique()->nullable();
+
+            $table->foreignId('user_id')
+                ->constrained()
+                ->cascadeOnDelete();
+
             $table->string('name');
-            $table->text('description')->nullable();
-            $table->double('lat')->nullable();
-            $table->double('long')->nullable();
+
+            $table->text('description')
+                ->nullable();
+
+            $table->string('slug')
+                ->unique()
+                ->nullable();
+
+            $table->string('visibility')
+                ->default('public');
+
+            $table->double('lat')
+                ->nullable();
+
+            $table->double('long')
+                ->nullable();
+
+            $table->dateTime('validated_at')
+                ->nullable();
+
             $table->timestamps();
         });
     }
